@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SmartIsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="HeadOfDept" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartmentSlots">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DeptId" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="ManagerId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmployeeGoals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PaId" Type="int" Nullable="false" />
+          <Property Name="GoalName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="rating" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartIs.dbo.EmployeeOOO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeOOO">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="leave" Type="nchar" MaxLength="10" />
+          <Property Name="RequestedDate" Type="date" />
+          <Property Name="RequestedBy" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FiscalYear">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="YearName" Type="varbinary" MaxLength="50" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartIs.dbo.LeaveDestribution' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LeaveDestribution">
+          <Key>
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="Balance" />
+            <PropertyRef Name="LeaveStructId" />
+          </Key>
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+          <Property Name="LeaveStructId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeaveStructure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LeaveTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="createBy" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="LeaveStructureId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerformanceApraisal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="RatingType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManagerComment" Type="nvarchar(max)" />
+          <Property Name="EmployeeComment" Type="nvarchar(max)" />
+          <Property Name="FiscalYearId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartIs.dbo.SlotHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SlotHistory">
+          <Key>
+            <PropertyRef Name="SlotId" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="SlotId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="EmpId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DepartmentSlots_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="DepartmentSlots" Type="Self.DepartmentSlots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DepartmentSlots">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGoals_PerformanceApraisal">
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="1" />
+          <End Role="EmployeeGoals" Type="Self.EmployeeGoals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerformanceApraisal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeGoals">
+              <PropertyRef Name="PaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeOOO_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeOOO" Type="Self.EmployeeOOO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmployeeOOO">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Holidays_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Holidays" Type="Self.Holidays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Holidays">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDestribution_LeaveStructure">
+          <End Role="LeaveStructure" Type="Self.LeaveStructure" Multiplicity="1" />
+          <End Role="LeaveDestribution" Type="Self.LeaveDestribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveStructure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeaveDestribution">
+              <PropertyRef Name="LeaveStructId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDestribution_LeaveTypes">
+          <End Role="LeaveTypes" Type="Self.LeaveTypes" Multiplicity="1" />
+          <End Role="LeaveDestribution" Type="Self.LeaveDestribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeaveDestribution">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_LeaveStructure">
+          <End Role="LeaveStructure" Type="Self.LeaveStructure" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveStructure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="LeaveStructureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerformanceApraisal_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PerformanceApraisal">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerformanceApraisal_FiscalYear">
+          <End Role="FiscalYear" Type="Self.FiscalYear" Multiplicity="0..1" />
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FiscalYear">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PerformanceApraisal">
+              <PropertyRef Name="FiscalYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SlotHistory_DepartmentSlots">
+          <End Role="DepartmentSlots" Type="Self.DepartmentSlots" Multiplicity="1" />
+          <End Role="SlotHistory" Type="Self.SlotHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentSlots">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SlotHistory">
+              <PropertyRef Name="SlotId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartIsModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentSlots" EntityType="Self.DepartmentSlots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeGoals" EntityType="Self.EmployeeGoals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FiscalYear" EntityType="Self.FiscalYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveStructure" EntityType="Self.LeaveStructure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveTypes" EntityType="Self.LeaveTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerformanceApraisal" EntityType="Self.PerformanceApraisal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeOOO" EntityType="Self.EmployeeOOO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeOOO].[EmpId] AS [EmpId], 
+    [EmployeeOOO].[startDate] AS [startDate], 
+    [EmployeeOOO].[EndDate] AS [EndDate], 
+    [EmployeeOOO].[leave] AS [leave], 
+    [EmployeeOOO].[RequestedDate] AS [RequestedDate], 
+    [EmployeeOOO].[RequestedBy] AS [RequestedBy], 
+    [EmployeeOOO].[Status] AS [Status]
+    FROM [dbo].[EmployeeOOO] AS [EmployeeOOO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LeaveDestribution" EntityType="Self.LeaveDestribution" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LeaveDestribution].[TypeId] AS [TypeId], 
+    [LeaveDestribution].[Balance] AS [Balance], 
+    [LeaveDestribution].[LeaveStructId] AS [LeaveStructId]
+    FROM [dbo].[LeaveDestribution] AS [LeaveDestribution]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SlotHistory" EntityType="Self.SlotHistory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SlotHistory].[SlotId] AS [SlotId], 
+    [SlotHistory].[StartDate] AS [StartDate], 
+    [SlotHistory].[EndDate] AS [EndDate], 
+    [SlotHistory].[EmpId] AS [EmpId]
+    FROM [dbo].[SlotHistory] AS [SlotHistory]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DepartmentSlots_Department" Association="Self.FK_DepartmentSlots_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="DepartmentSlots" EntitySet="DepartmentSlots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Location" Association="Self.FK_Employee_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGoals_PerformanceApraisal" Association="Self.FK_EmployeeGoals_PerformanceApraisal">
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+            <End Role="EmployeeGoals" EntitySet="EmployeeGoals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeOOO_Employee" Association="Self.FK_EmployeeOOO_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeOOO" EntitySet="EmployeeOOO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holidays_Location" Association="Self.FK_Holidays_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Holidays" EntitySet="Holidays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDestribution_LeaveStructure" Association="Self.FK_LeaveDestribution_LeaveStructure">
+            <End Role="LeaveStructure" EntitySet="LeaveStructure" />
+            <End Role="LeaveDestribution" EntitySet="LeaveDestribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDestribution_LeaveTypes" Association="Self.FK_LeaveDestribution_LeaveTypes">
+            <End Role="LeaveTypes" EntitySet="LeaveTypes" />
+            <End Role="LeaveDestribution" EntitySet="LeaveDestribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_LeaveStructure" Association="Self.FK_Location_LeaveStructure">
+            <End Role="LeaveStructure" EntitySet="LeaveStructure" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerformanceApraisal_Employee" Association="Self.FK_PerformanceApraisal_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerformanceApraisal_FiscalYear" Association="Self.FK_PerformanceApraisal_FiscalYear">
+            <End Role="FiscalYear" EntitySet="FiscalYear" />
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SlotHistory_DepartmentSlots" Association="Self.FK_SlotHistory_DepartmentSlots">
+            <End Role="DepartmentSlots" EntitySet="DepartmentSlots" />
+            <End Role="SlotHistory" EntitySet="SlotHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartIsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="HeadOfDept" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DepartmentSlots" Relationship="Self.FK_DepartmentSlots_Department" FromRole="Department" ToRole="DepartmentSlots" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="DepartmentSlots">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentSlots_Department" FromRole="DepartmentSlots" ToRole="Department" />
+          <NavigationProperty Name="SlotHistory" Relationship="Self.FK_SlotHistory_DepartmentSlots" FromRole="DepartmentSlots" ToRole="SlotHistory" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ManagerId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Employee_Location" FromRole="Employee" ToRole="Location" />
+          <NavigationProperty Name="EmployeeOOO" Relationship="Self.FK_EmployeeOOO_Employee" FromRole="Employee" ToRole="EmployeeOOO" />
+          <NavigationProperty Name="PerformanceApraisal" Relationship="Self.FK_PerformanceApraisal_Employee" FromRole="Employee" ToRole="PerformanceApraisal" />
+        </EntityType>
+        <EntityType Name="EmployeeGoals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GoalName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Int32" />
+          <NavigationProperty Name="PerformanceApraisal" Relationship="Self.FK_EmployeeGoals_PerformanceApraisal" FromRole="EmployeeGoals" ToRole="PerformanceApraisal" />
+        </EntityType>
+        <EntityType Name="FiscalYear">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="YearName" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PerformanceApraisal" Relationship="Self.FK_PerformanceApraisal_FiscalYear" FromRole="FiscalYear" ToRole="PerformanceApraisal" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Holidays_Location" FromRole="Holidays" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="LeaveStructure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LeaveDestribution" Relationship="Self.FK_LeaveDestribution_LeaveStructure" FromRole="LeaveStructure" ToRole="LeaveDestribution" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_LeaveStructure" FromRole="LeaveStructure" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="LeaveTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LeaveDestribution" Relationship="Self.FK_LeaveDestribution_LeaveTypes" FromRole="LeaveTypes" ToRole="LeaveDestribution" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Location" FromRole="Location" ToRole="Employee" />
+          <NavigationProperty Name="Holidays" Relationship="Self.FK_Holidays_Location" FromRole="Location" ToRole="Holidays" />
+          <NavigationProperty Name="LeaveStructure" Relationship="Self.FK_Location_LeaveStructure" FromRole="Location" ToRole="LeaveStructure" />
+        </EntityType>
+        <EntityType Name="PerformanceApraisal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="RatingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ManagerComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_PerformanceApraisal_Employee" FromRole="PerformanceApraisal" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeGoals" Relationship="Self.FK_EmployeeGoals_PerformanceApraisal" FromRole="PerformanceApraisal" ToRole="EmployeeGoals" />
+          <NavigationProperty Name="FiscalYear" Relationship="Self.FK_PerformanceApraisal_FiscalYear" FromRole="PerformanceApraisal" ToRole="FiscalYear" />
+        </EntityType>
+        <EntityType Name="EmployeeOOO">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="leave" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RequestedDate" Type="DateTime" Precision="0" />
+          <Property Name="RequestedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeOOO_Employee" FromRole="EmployeeOOO" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="LeaveDestribution">
+          <Key>
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="Balance" />
+            <PropertyRef Name="LeaveStructId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <Property Name="LeaveStructId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LeaveStructure" Relationship="Self.FK_LeaveDestribution_LeaveStructure" FromRole="LeaveDestribution" ToRole="LeaveStructure" />
+          <NavigationProperty Name="LeaveTypes" Relationship="Self.FK_LeaveDestribution_LeaveTypes" FromRole="LeaveDestribution" ToRole="LeaveTypes" />
+        </EntityType>
+        <EntityType Name="SlotHistory">
+          <Key>
+            <PropertyRef Name="SlotId" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="SlotId" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EmpId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DepartmentSlots" Relationship="Self.FK_SlotHistory_DepartmentSlots" FromRole="SlotHistory" ToRole="DepartmentSlots" />
+        </EntityType>
+        <Association Name="FK_DepartmentSlots_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="DepartmentSlots" Type="Self.DepartmentSlots" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_SlotHistory_DepartmentSlots">
+          <End Role="DepartmentSlots" Type="Self.DepartmentSlots" Multiplicity="1" />
+          <End Role="SlotHistory" Type="Self.SlotHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentSlots">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SlotHistory">
+              <PropertyRef Name="SlotId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EmployeeOOO_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeOOO" Type="Self.EmployeeOOO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmployeeOOO">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerformanceApraisal_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EmployeeGoals_PerformanceApraisal">
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="1" />
+          <End Role="EmployeeGoals" Type="Self.EmployeeGoals" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PerformanceApraisal_FiscalYear">
+          <End Role="FiscalYear" Type="Self.FiscalYear" Multiplicity="0..1" />
+          <End Role="PerformanceApraisal" Type="Self.PerformanceApraisal" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Holidays_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Holidays" Type="Self.Holidays" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LeaveDestribution_LeaveStructure">
+          <End Role="LeaveStructure" Type="Self.LeaveStructure" Multiplicity="1" />
+          <End Role="LeaveDestribution" Type="Self.LeaveDestribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveStructure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeaveDestribution">
+              <PropertyRef Name="LeaveStructId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_LeaveStructure">
+          <End Role="LeaveStructure" Type="Self.LeaveStructure" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LeaveDestribution_LeaveTypes">
+          <End Role="LeaveTypes" Type="Self.LeaveTypes" Multiplicity="1" />
+          <End Role="LeaveDestribution" Type="Self.LeaveDestribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeaveDestribution">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartIsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="DepartmentSlots" EntityType="Self.DepartmentSlots" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeGoals" EntityType="Self.EmployeeGoals" />
+          <EntitySet Name="FiscalYear" EntityType="Self.FiscalYear" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" />
+          <EntitySet Name="LeaveStructure" EntityType="Self.LeaveStructure" />
+          <EntitySet Name="LeaveTypes" EntityType="Self.LeaveTypes" />
+          <EntitySet Name="Location" EntityType="Self.Location" />
+          <EntitySet Name="PerformanceApraisal" EntityType="Self.PerformanceApraisal" />
+          <EntitySet Name="EmployeeOOO" EntityType="Self.EmployeeOOO" />
+          <EntitySet Name="LeaveDestribution" EntityType="Self.LeaveDestribution" />
+          <EntitySet Name="SlotHistory" EntityType="Self.SlotHistory" />
+          <AssociationSet Name="FK_DepartmentSlots_Department" Association="Self.FK_DepartmentSlots_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="DepartmentSlots" EntitySet="DepartmentSlots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SlotHistory_DepartmentSlots" Association="Self.FK_SlotHistory_DepartmentSlots">
+            <End Role="DepartmentSlots" EntitySet="DepartmentSlots" />
+            <End Role="SlotHistory" EntitySet="SlotHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Location" Association="Self.FK_Employee_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeOOO_Employee" Association="Self.FK_EmployeeOOO_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeOOO" EntitySet="EmployeeOOO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerformanceApraisal_Employee" Association="Self.FK_PerformanceApraisal_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGoals_PerformanceApraisal" Association="Self.FK_EmployeeGoals_PerformanceApraisal">
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+            <End Role="EmployeeGoals" EntitySet="EmployeeGoals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerformanceApraisal_FiscalYear" Association="Self.FK_PerformanceApraisal_FiscalYear">
+            <End Role="FiscalYear" EntitySet="FiscalYear" />
+            <End Role="PerformanceApraisal" EntitySet="PerformanceApraisal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holidays_Location" Association="Self.FK_Holidays_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Holidays" EntitySet="Holidays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDestribution_LeaveStructure" Association="Self.FK_LeaveDestribution_LeaveStructure">
+            <End Role="LeaveStructure" EntitySet="LeaveStructure" />
+            <End Role="LeaveDestribution" EntitySet="LeaveDestribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_LeaveStructure" Association="Self.FK_Location_LeaveStructure">
+            <End Role="LeaveStructure" EntitySet="LeaveStructure" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDestribution_LeaveTypes" Association="Self.FK_LeaveDestribution_LeaveTypes">
+            <End Role="LeaveTypes" EntitySet="LeaveTypes" />
+            <End Role="LeaveDestribution" EntitySet="LeaveDestribution" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartIsModelStoreContainer" CdmEntityContainer="SmartIsEntities">
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="SmartIsModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="HeadOfDept" ColumnName="HeadOfDept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentSlots">
+            <EntityTypeMapping TypeName="SmartIsModel.DepartmentSlots">
+              <MappingFragment StoreEntitySet="DepartmentSlots">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="SmartIsModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeGoals">
+            <EntityTypeMapping TypeName="SmartIsModel.EmployeeGoals">
+              <MappingFragment StoreEntitySet="EmployeeGoals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GoalName" ColumnName="GoalName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FiscalYear">
+            <EntityTypeMapping TypeName="SmartIsModel.FiscalYear">
+              <MappingFragment StoreEntitySet="FiscalYear">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="YearName" ColumnName="YearName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holidays">
+            <EntityTypeMapping TypeName="SmartIsModel.Holidays">
+              <MappingFragment StoreEntitySet="Holidays">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveStructure">
+            <EntityTypeMapping TypeName="SmartIsModel.LeaveStructure">
+              <MappingFragment StoreEntitySet="LeaveStructure">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTypes">
+            <EntityTypeMapping TypeName="SmartIsModel.LeaveTypes">
+              <MappingFragment StoreEntitySet="LeaveTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="SmartIsModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerformanceApraisal">
+            <EntityTypeMapping TypeName="SmartIsModel.PerformanceApraisal">
+              <MappingFragment StoreEntitySet="PerformanceApraisal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="RatingType" ColumnName="RatingType" />
+                <ScalarProperty Name="ManagerComment" ColumnName="ManagerComment" />
+                <ScalarProperty Name="EmployeeComment" ColumnName="EmployeeComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeOOO">
+            <EntityTypeMapping TypeName="SmartIsModel.EmployeeOOO">
+              <MappingFragment StoreEntitySet="EmployeeOOO">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="leave" ColumnName="leave" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveDestribution">
+            <EntityTypeMapping TypeName="SmartIsModel.LeaveDestribution">
+              <MappingFragment StoreEntitySet="LeaveDestribution">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="LeaveStructId" ColumnName="LeaveStructId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlotHistory">
+            <EntityTypeMapping TypeName="SmartIsModel.SlotHistory">
+              <MappingFragment StoreEntitySet="SlotHistory">
+                <ScalarProperty Name="SlotId" ColumnName="SlotId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_DepartmentSlots_Department" TypeName="SmartIsModel.FK_DepartmentSlots_Department" StoreEntitySet="DepartmentSlots">
+            <EndProperty Name="Department">
+              <ScalarProperty Name="Id" ColumnName="DepartmentId" />
+            </EndProperty>
+            <EndProperty Name="DepartmentSlots">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Employee_Department" TypeName="SmartIsModel.FK_Employee_Department" StoreEntitySet="Employee">
+            <EndProperty Name="Department">
+              <ScalarProperty Name="Id" ColumnName="DeptId" />
+            </EndProperty>
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Employee_Location" TypeName="SmartIsModel.FK_Employee_Location" StoreEntitySet="Employee">
+            <EndProperty Name="Location">
+              <ScalarProperty Name="Id" ColumnName="LocationId" />
+            </EndProperty>
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="LocationId" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PerformanceApraisal_Employee" TypeName="SmartIsModel.FK_PerformanceApraisal_Employee" StoreEntitySet="PerformanceApraisal">
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="EmpID" ColumnName="EmpId" />
+            </EndProperty>
+            <EndProperty Name="PerformanceApraisal">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EmployeeGoals_PerformanceApraisal" TypeName="SmartIsModel.FK_EmployeeGoals_PerformanceApraisal" StoreEntitySet="EmployeeGoals">
+            <EndProperty Name="PerformanceApraisal">
+              <ScalarProperty Name="Id" ColumnName="PaId" />
+            </EndProperty>
+            <EndProperty Name="EmployeeGoals">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PerformanceApraisal_FiscalYear" TypeName="SmartIsModel.FK_PerformanceApraisal_FiscalYear" StoreEntitySet="PerformanceApraisal">
+            <EndProperty Name="FiscalYear">
+              <ScalarProperty Name="Id" ColumnName="FiscalYearId" />
+            </EndProperty>
+            <EndProperty Name="PerformanceApraisal">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FiscalYearId" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Holidays_Location" TypeName="SmartIsModel.FK_Holidays_Location" StoreEntitySet="Holidays">
+            <EndProperty Name="Location">
+              <ScalarProperty Name="Id" ColumnName="LocationId" />
+            </EndProperty>
+            <EndProperty Name="Holidays">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Location_LeaveStructure" TypeName="SmartIsModel.FK_Location_LeaveStructure" StoreEntitySet="Location">
+            <EndProperty Name="LeaveStructure">
+              <ScalarProperty Name="Id" ColumnName="LeaveStructureId" />
+            </EndProperty>
+            <EndProperty Name="Location">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
